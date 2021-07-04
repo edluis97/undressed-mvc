@@ -7,17 +7,17 @@ class Date
 
     $monthArray = [
       "Jan",
-      "Fev",
+      "Feb",
       "Mar",
-      "Abr",
-      "Mai",
+      "Apr",
+      "May",
       "Jun",
       "Jul",
-      "Ago",
-      "Set",
-      "Out",
+      "Aug",
+      "Sep",
+      "Oct",
       "Nov",
-      "Dez"
+      "Dec"
     ];
 
     $monthIndex = intval(date("m", strtotime($date))) - 1;
@@ -29,18 +29,18 @@ class Date
   public static function long($date) {
 
     $monthArray = [
-      "Janeiro",
-      "Fevereiro",
-      "Março",
-      "Abril",
-      "Maio",
-      "Junho",
-      "Julho",
-      "Agosto",
-      "Setembro",
-      "Outubro",
-      "Novembro",
-      "Dezembro"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
     ];
 
     $monthIndex = intval(date("m", strtotime($date))) - 1;
@@ -52,18 +52,18 @@ class Date
   public static function longDate($date) {
 
     $monthArray = [
-      "Janeiro",
-      "Fevereiro",
-      "Março",
-      "Abril",
-      "Maio",
-      "Junho",
-      "Julho",
-      "Agosto",
-      "Setembro",
-      "Outubro",
-      "Novembro",
-      "Dezembro"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
     ];
 
     $monthIndex = intval(date("m", strtotime($date))) - 1;
