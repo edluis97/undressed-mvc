@@ -14,3 +14,25 @@ PHP 7+ and MySQLi is recommended.
 ## License
 MIT License.
 Check the [license agreement](https://github.com/edluis97/undressed-mvc/blob/master/license.md)
+
+## Installation
+1. Just clone via git, or download and place the content in your project folder.
+2. Change the configs.php according to your project
+
+```php
+
+//If your project is in the root directory leave the $siteInfo variable like that
+$siteInfo = array(
+  "root"  => $_SERVER['DOCUMENT_ROOT'],
+  "baseURL" => '/',
+);
+
+//If your project is, e.g., inside the 'project' folder placed which is in root
+$siteInfo = array(
+  "root"  => $_SERVER['DOCUMENT_ROOT'].'/project',
+  "baseURL" => '/project/',
+);
+
+```
+Change the rest of the configs file to your mysqli and smtp data
+
