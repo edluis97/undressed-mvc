@@ -43,6 +43,12 @@ function view_single($page, $data) {
   
 }
 
+function json_return($status_code, $data) {
+  http_response_code($status_code);
+  $json = json_encode($data);
+  echo $json;
+}
+
 function redirect($link) {
   global $siteInfo;
   

@@ -15,6 +15,12 @@ Class pagesController
     	));
     	//Calling the view (site/App/Views/pages/page.view.php)
 
+    	//Sending JSON instead
+    	/*
+			json_return(200, $pageInfo);
+			//1st -> http status
+			//2nd -> data (this will be converted into json)
+    	*/
 
     }
   }
