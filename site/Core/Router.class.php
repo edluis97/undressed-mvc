@@ -20,9 +20,7 @@ class Router
     //Route can´t be just the beginning of the path, must be whole path
     if (preg_match('/'.$route_regex.'$/iD', $pathShort) && ($route_regex != '' || $route_regex == $pathShort)) {
       //Match was found
-      //var_dump($route);
       self::UrlWildcardReplacement($route);
-      //dd($this->routes);
       
       if(array_key_exists(Request::getPath()['shortPath'], self::$routes[Request::method()])){
         return self::callController(self::$routes[Request::method()][Request::getPath()['shortPath']]);
