@@ -1,0 +1,18 @@
+# Turn on URL rewriting
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ index.php/$1 [NC,L]
+
+# Caches some image formats. JPEG not included
+<FilesMatch "\.(ico|pdf|png|gif|jpg|jpeg)$">
+  Header set Cache-Control "max-age=604800, public, must-revalidate"
+  # Header unset Last-Modified
+</FilesMatch>
+
+# cache html/htm/xml/txt
+<FilesMatch "\.(html|htm|xml|txt|xsl|css|js)$">
+  Header set Cache-Control "max-age=604800, must-revalidate"
+</FilesMatch>
+
+Options -Indexes
