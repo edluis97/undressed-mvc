@@ -10,3 +10,7 @@ The 'Undressed MVC' **handles routing** for you (so you don't have to create you
 
 ## Requirements
 PHP 7+ is recommended.
+
+## License
+MIT License.
+Check the [license agreement](https://github.com/edluis97/undressed-mvc/blob/master/license.md)
