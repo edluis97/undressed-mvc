@@ -16,26 +16,42 @@ class Validation
     "honeyPotMicrotime",
     "confirmed",
     "csrf_token",
+    "file_format",
+    "file_maxsize_total",
   );
   
-  public function validate($request, $rules) {
+  public function validate($rules) {
+
+    $request = $_REQUEST;
+    $files = $_FILES;
+
     foreach ($rules as $ruleKey => $rule) {
-      if (isset($request[$ruleKey])) {
+      if (isset($request[$ruleKey]) || isset($files[$ruleKey])) {
         
-        $this->addOld($ruleKey, $request[$ruleKey]);
+        if (isset($request[$ruleKey])) {
+          $this->addOld($ruleKey, $request[$ruleKey]); 
+        }         
         
         foreach ($rule['rules'] as $ruleItemKey => $ruleItem) {
           if (strpos($ruleItem, ':') !== false) {
             $ruleItemArr = explode(':', $ruleItem);
             if (in_array($ruleItemArr[0], $this->rules)) {
-              $this->{$ruleItemArr[0]}($ruleKey, $rule['alias'], $request[$ruleKey], $ruleItemArr[1]);
+              if (strpos($ruleItemArr[0], 'file') !== false) {
+                $this->{$ruleItemArr[0]}($ruleKey, $rule['alias'], $files[$ruleKey], $ruleItemArr[1]);
+              } else {
+                $this->{$ruleItemArr[0]}($ruleKey, $rule['alias'], $request[$ruleKey], $ruleItemArr[1]);
+              }              
             }
           } else {
             if (in_array($ruleItem, $this->rules)) {
               if ($ruleItem == 'confirmed') {
                 $this->{$ruleItem}($ruleKey, $rule['alias'], $request);
               } else {
-                $this->{$ruleItem}($ruleKey, $rule['alias'], $request[$ruleKey]);
+                if (strpos($ruleItem, 'file') !== false) {
+                  $this->{$ruleItem}($ruleKey, $rule['alias'], $files[$ruleKey]);
+                } else {
+                  $this->{$ruleItem}($ruleKey, $rule['alias'], $request[$ruleKey]);
+                }
               }             
             }
           }
@@ -188,6 +204,76 @@ class Validation
     if (strlen($value) > $max) {
       $this->addError($field, $alias." is over ".$max." characters", $value);
     }
+  }
+
+  protected function file_format($field, $alias, $value, $formats) {
+    $formats = explode('_', $formats);
+    
+    if (is_array($value['name'])) {
+      //Multiple
+      $allowed = true;
+      foreach ($value['name'] as $fileKey => $fileName) {
+        if (!File::isAllowedFormat($fileName, $formats)) {
+          $allowed = false;
+        }
+      }
+    } else {
+      //Single
+      $allowed = File::isAllowedFormat($value['name'], $formats);
+    }
+    
+    if (!$allowed) {
+      $this->addError($field, $alias." is not in the allowed formats.", $value);
+    }
+  }
+
+  protected function file_maxsize_total($field, $alias, $value, $maxSize) {
+    $totalSize = 0;
+
+    $allowed = true;
+    if (is_array($value['name'])) {
+      //Multiple   
+      foreach ($value['size'] as $fileKey => $fileSize) {
+        $totalSize += $fileSize;
+        if ($totalSize > $maxSize) {
+          $allowed = false;
+        }
+      }
+    } else {
+      //Single
+      if ($totalSize > $value['size']) {
+        $allowed = false;
+      }
+    }
+
+    if (!$allowed) {
+      $this->addError($field, $alias." is over the total file size limit allowed.", $value);
+    }
+
+  }
+
+  protected function file_maxsize_every($field, $alias, $value, $maxSize) {
+    $totalSize = 0;
+
+    $oversized = 0;
+    if (is_array($value['name'])) {
+      //Multiple   
+      foreach ($value['size'] as $fileKey => $fileSize) {
+        if ($totalSize > $fileSize) {
+          $oversized++;
+        }
+      }
+    } else {
+      //Single
+      if ($totalSize > $value['size']) {
+        $oversized++;
+      }
+    }
+
+    if ($oversized) {
+      $this->addError($field, $alias." has $oversized files over the allowed size limit.", $value);
+    }
+
   }
   
   //HoneyPot

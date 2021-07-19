@@ -1,6 +1,9 @@
 <?php
 
-function view($page, $data) {
+function view($page, $data, $status_code = 200) {
+
+  http_response_code($status_code);
+
   if(session_status() !== PHP_SESSION_ACTIVE)  {
     session_start();
   }
@@ -21,8 +24,10 @@ function view($page, $data) {
   
 }
 
-function view_single($page, $data) {
-  
+function view_single($page, $data, $status_code = 200) {
+
+  http_response_code($status_code);
+
   if(session_status() !== PHP_SESSION_ACTIVE)  {
     session_start();
   }
@@ -43,7 +48,7 @@ function view_single($page, $data) {
   
 }
 
-function json_return($status_code, $data) {
+function json_return($data, $status_code=200) {
   http_response_code($status_code);
   $json = json_encode($data);
   echo $json;
@@ -53,10 +58,10 @@ function redirect($link) {
   global $siteInfo;
   
   if (!headers_sent()) {
-    header('Location: '.$siteInfo['urlPrefix'].$link);
+    header('Location: '.$siteInfo['baseURL'].$link);
     exit;
   } else {
-    echo '<script type="text/javascript">window.location = "'.$siteInfo['urlPrefix'].$link.'"</script>';
+    echo '<script type="text/javascript">window.location = "'.$siteInfo['baseURL'].$link.'"</script>';
   }
 }
 
