@@ -1,0 +1,9 @@
+.navbar-dark .navbar-nav .nav-link.active {
+	background-color: rgba(0,0,0,.15);
+}
+
+#footer {
+	background: var(--bs-blue);
+	color: var(--bs-white);
+	border-top: 4px solid var(--bs-cyan);
+}
