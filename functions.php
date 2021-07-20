@@ -18,7 +18,7 @@ function view($page, $data, $status_code = 200) {
     extract($data);
   }
   
-  require_once $siteInfo['root'].'/site/App/Views/_static/layout.view.php';
+  require_once $siteInfo['root'].'/App/Views/_static/layout.view.php';
   
   Validation::clear();
   
@@ -42,7 +42,7 @@ function view_single($page, $data, $status_code = 200) {
     extract($data);
   }
   
-  require_once $siteInfo['root'].'/site/App/Views/'.$page.'.view.php';
+  require_once $siteInfo['root'].'/App/Views/'.$page.'.view.php';
   
   Validation::clear();
   

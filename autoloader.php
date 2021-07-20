@@ -8,11 +8,11 @@ if(!function_exists("autoLoader")) {
     $class = $className.$extension;
     
     $sources = array(
-      $siteInfo['root']."/site/App/Controllers/".$class,
-      $siteInfo['root']."/site/App/Models/".$class,
-      $siteInfo['root']."/site/Core/".$class,
-      $siteInfo['root']."/site/Core/Mail/".$class,
-      $siteInfo['root']."/site/Core/WebSockets/".$class,
+      $siteInfo['root']."/App/Controllers/".$class,
+      $siteInfo['root']."/App/Models/".$class,
+      $siteInfo['root']."/Core/".$class,
+      $siteInfo['root']."/Core/Mail/".$class,
+      $siteInfo['root']."/Core/WebSockets/".$class,
     );
     
     foreach($sources as $source) {

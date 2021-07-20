@@ -4,16 +4,16 @@
 require_once 'configs.php';
 
 //AutoLoader
-require_once 'site/_autoloader.php';
+require_once 'autoloader.php';
 
 //Functions
-require_once 'site/functions.php';
+require_once 'functions.php';
 
 //Establishing Database connection for further use
 DB::connect();
 
 //Routing
-require_once 'site/App/routes/routes.php';
+require_once 'App/routes/routes.php';
 Router::index();
 
 ?>

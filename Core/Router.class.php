@@ -31,7 +31,7 @@ class Router
   }
   
   /* 404 Error */
-  $controller = new pagesController();
+  $controller = new errorController();
   $controller->error_404();
   
 }
